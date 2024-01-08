@@ -199,6 +199,8 @@ These two resources are worth reading:
 
 ### Demo
 
+## I'm at this step 
+
 - Let's create a new environment to run our hello world project using the `install_env.sh` script. Make sure you are at `best-practices` and run:
 
 ```bash
