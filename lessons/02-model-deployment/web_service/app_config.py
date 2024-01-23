@@ -1,5 +1,4 @@
 
-
 class AppConfig:
 
 # MODELS
