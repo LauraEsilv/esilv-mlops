@@ -11,8 +11,8 @@ def load_pickle(path: str):
 def predict(input_data: Any, model_path: str = AppConfig.PATH_TO_PIPELINE):
     model = load_pickle(model_path)
     # Your prediction logic using the loaded model
-    result = model.predict(input_data)
-    return result
+    #result = model.predict(input_data)
+    return model
 
 import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
@@ -41,15 +41,15 @@ def extract_x_y(
     x = dv.transform(dicts)
     return x, y, dv
 
-CATEGORICAL_COLS = ["PULocationID", "DOLocationID"]
+CATEGORICAL_COLS = ["PULocationID", "DOLocationID", "passenger_count"]
 
 def compute_target(
     df: pd.DataFrame,
     pickup_column: int = "PULocationID",
     dropoff_column: int = "DOLocationID",
 ) -> pd.DataFrame:
-    df["duration"] = df[dropoff_column] - df[pickup_column]
-    df["duration"] = df["duration"].dt.total_seconds() / 60
+    df["duration"] = df[dropoff_column] - df[pickup_column] /60
+    #df["duration"] = df["duration"].dt.total_seconds() / 60
     return df
 
 def filter_outliers(df: pd.DataFrame, min_duration: int = 1, max_duration: int = 60) -> pd.DataFrame:
