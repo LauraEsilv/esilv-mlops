@@ -19,13 +19,13 @@ async def read_root(config: AppConfig = Depends(get_app_config)):
 
 from fastapi import Depends
 from lib.model_operations import run_inference
-from lib.models import Input
+from lib.models import Input, Prediction
+from lib.prediction_utils import load_preprocessor, load_pickle
 
 # Define a POST operation for the path "/greet"
-@app.post("/run_inference")
-async def run_inference_endpoint(data: Input):
-    result = run_inference(data)
-    return {"message": f"StartLocation: {data.PULocationID}, "
-                       f"EndLocation: {data.DOLocationID}, "
-                       f"Passenger Count: {data.passenger_count}",
-            "result": result}
+@app.post("/predict", response_model=Prediction, status_code=201)
+def predict(payload: Input):
+    dv = load_preprocessor(AppConfig.PATH_TO_PREPROCESOR)
+    model = load_pickle(AppConfig.PATH_TO_PIPELINE)
+    y = run_inference([payload], dv, model)
+    return {"trip_duration_prediction": y[0]}

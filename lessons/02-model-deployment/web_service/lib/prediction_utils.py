@@ -1,28 +1,13 @@
+import pickle
+from functools import lru_cache
 
-import numpy as np
+@lru_cache
+def load_preprocessor(path: str):
+    with open(path, "rb") as f:
+        return pickle.load(f)
 
-from sklearn.linear_model import LinearRegression
-
-from sklearn.metrics import mean_squared_error
-
-from typing import List
-from scipy.sparse import csr_matrix
-
-
-# Train Model
-
-def train_model(x_train: csr_matrix, y_train: np.ndarray):
-    lr = LinearRegression()
-    lr.fit(x_train, y_train)
-    return lr
-
-
-# Predict
-
-def predict(path: str, model: LinearRegression):
-    return model.predict(path)
-
-
-#def predict_duration(input_data: csr_matrix, model: LinearRegression):
-#    return model.predict(input_data)
-  
+@lru_cache
+def load_pickle(path: str):
+    with open(path, "rb") as f:
+        loaded_obj = pickle.load(f)
+    return loaded_obj

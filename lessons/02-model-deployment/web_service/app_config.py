@@ -4,7 +4,7 @@ class AppConfig:
 # MODELS
     MODEL_VERSION = "0.0.1"
     PATH_TO_PIPELINE ="esilv-mlops/lessons/02-model-deployment/web_service/local_models/model.pkl" 
-
+    PATH_TO_PREPROCESOR ="esilv-mlops/lessons/02-model-deployment/web_service/lib/preprocesor.py" 
 
 
 # MISC
